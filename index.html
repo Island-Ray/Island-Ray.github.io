@@ -1,1 +1,490 @@
-<h1> HELLo </h1>
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>西昌精致旅行计划</title>
+    <style>
+        :root {
+            --primary: #5E72E4;
+            --secondary: #825EE4;
+            --accent: #FF6B6B;
+            --text: #2D3748;
+            --text-light: #718096;
+            --bg: #F8F9FA;
+            --card-bg: rgba(255, 255, 255, 0.85);
+            --shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
+            --glass: rgba(255, 255, 255, 0.2);
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        @font-face {
+            font-family: 'Harmony';
+            src: local('PingFang SC'), local('Microsoft YaHei'), sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Harmony', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            background-image: radial-gradient(circle at 10% 20%, rgba(94, 114, 228, 0.05) 0%, rgba(130, 94, 228, 0.05) 90%);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 1rem;
+            letter-spacing: -0.5px;
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass);
+            transform: translateY(20px);
+            opacity: 0;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card.visible {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--primary), var(--secondary));
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+        }
+
+        h2::before {
+            content: '';
+            display: inline-block;
+            width: 24px;
+            height: 24px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 50%;
+            margin-right: 12px;
+        }
+
+        h3 {
+            font-size: 1.4rem;
+            margin: 1.5rem 0 1rem;
+            color: var(--secondary);
+            display: flex;
+            align-items: center;
+        }
+
+        h3::before {
+            content: '';
+            display: inline-block;
+            width: 6px;
+            height: 6px;
+            background: var(--accent);
+            border-radius: 50%;
+            margin-right: 12px;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        li {
+            margin-bottom: 1rem;
+            position: relative;
+            padding-left: 2rem;
+        }
+
+        li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+            font-weight: bold;
+        }
+
+        .highlight {
+            background: linear-gradient(120deg, rgba(255, 237, 178, 0.5), rgba(255, 237, 178, 0.5));
+            background-repeat: no-repeat;
+            background-size: 100% 40%;
+            background-position: 0 90%;
+            padding: 0 0.2em;
+        }
+
+        .tag {
+            display: inline-block;
+            background: rgba(94, 114, 228, 0.1);
+            color: var(--primary);
+            padding: 0.2rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-left: 0.5rem;
+            vertical-align: middle;
+        }
+
+        .weather {
+            display: inline-flex;
+            align-items: center;
+            background: rgba(74, 144, 226, 0.1);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin-left: 0.5rem;
+        }
+
+        .weather::before {
+            content: '☀️';
+            margin-right: 0.3rem;
+        }
+
+        .timeline {
+            position: relative;
+            padding-left: 2rem;
+            margin: 2rem 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, var(--primary), var(--secondary));
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px dashed rgba(0, 0, 0, 0.1);
+        }
+
+        .timeline-item:last-child {
+            border-bottom: none;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -2.3rem;
+            top: 0.3rem;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--accent);
+            border: 2px solid white;
+            box-shadow: 0 0 0 3px var(--accent);
+        }
+
+        .time {
+            font-weight: bold;
+            color: var(--primary);
+            margin-right: 0.5rem;
+        }
+
+        .place {
+            font-weight: bold;
+            color: var(--secondary);
+        }
+
+        .note {
+            background: rgba(255, 107, 107, 0.05);
+            border-left: 3px solid var(--accent);
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 3rem;
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .card {
+                padding: 1.5rem;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>西昌精致旅行计划</h1>
+            <p class="subtitle">根据天气、景点距离及交通便利性优化的完美行程安排</p>
+        </header>
+
+        <div class="card" id="overview">
+            <h2>行程优化建议</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <p><span class="time">4月3日（周四）晚</span> <span class="place">抵达西昌</span></p>
+                    <ul>
+                        <li><strong>交通</strong>：自驾从成都出发，预计凌晨0点抵达西昌，建议直接入住酒店休息。</li>
+                        <li><strong>夜宵</strong>：若抵达时间较早（23:00前），可前往<strong class="highlight">老号李小肠特色烧烤庄园总店</strong>（航天路店），否则调整至5日晚。</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="card" id="day1">
+            <h2>4月4日（周五）：邛海环线游 <span class="weather">多云 26℃ 紫外线中等</span></h2>
+            <p class="tag">交通建议：自驾为主，景点间距离较近（5-10分钟车程）</p>
+            
+            <div class="timeline">
+                <div class="timeline-item">
+                    <p><span class="time">早餐</span> <span class="place">熊氏牛羊杂粉（龙眼井总店）</span></p>
+                    <ul>
+                        <li>距离酒店约2.5公里，15分钟车程</li>
+                    </ul>
+                </div>
+                
+                <div class="timeline-item">
+                    <p><span class="time">上午</span> <span class="place">月色风情小镇</span></p>
+                    <ul>
+                        <li>游玩重点：登泸山观景台（索道上山）、月亮女儿雕像、邛海栈道喂海鸥（冬季限定）</li>
+                        <li>建议打车前往（距离酒店约3公里），避免停车拥堵</li>
+                    </ul>
+                </div>
+                
+                <div class="timeline-item">
+                    <p><span class="time">午餐</span> <span class="place">月色打鱼匠或樱花屋音乐餐吧</span></p>
+                    <ul>
+                        <li>小镇内步行可达的优质餐厅</li>
+                    </ul>
+                </div>
+                
+                <div class="timeline-item">
+                    <p><span class="time">下午</span> <span class="place">月亮湾景区 → 金鳞沙滩</span></p>
+                    <ul>
+                        <li>自驾或公交106路直达金鳞沙滩（邛海东岸）</li>
+                        <li>金鳞沙滩适合16:30后抵达，拍摄夕阳（19:00左右）</li>
+                    </ul>
+                </div>
+                
+                <div class="timeline-item">
+                    <p><span class="time">晚餐</span> <span class="place">小渔村国康串烧</span></p>
+                    <ul>
+                        <li>金鳞沙滩附近，步行或短途车程</li>
+                    </ul>
+                </div>
+                
+                <div class="timeline-item">
+                    <p><span class="time">晚上</span> <span class="place">海河酒吧一条街</span></p>
+                    <ul>
+                        <li>建议打车往返，避免酒后驾驶</li>
+                        <li>可顺路尝试<strong class="highlight">元根酸菜肉丝粉（海河帝景店）</strong>作为宵夜</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="card" id="day2">
+            <h2>4月5日（周六）：人文与古城体验 <span class="weather">多云 28℃ 紫外线强</span></h2>
+            <p class="tag">交通建议：上午打车，下午自驾或打车</p>
+            
+            <div class="timeline">
+                <div class="timeline-item">
+                    <p><span class="time">早餐</span> <span class="place">元根酸菜肉丝粉（海河帝景店）</span></p>
+                    <ul>
+                        <li>近酒店，步行可达</li>
+                    </ul>
+                </div>
+                
+                <div class="timeline-item">
+                    <p><span class="time">上午</span> <span class="place">泸山景区</span></p>
+                    <ul>
+                        <li>游玩重点：光福寺、彝族奴隶社会博物馆、野生猴群互动</li>
+                        <li>建议打车前往（距离酒店约3公里），索道上山、滑道下山</li>
+                    </ul>
+                </div>
+                
+                <div class="timeline-item">
+                    <p><span class="time">午餐</span> <span class="place">五彩凉山彝族酒楼</span></p>
+                    <ul>
+                        <li>泸山附近，推荐坨坨肉、苦荞饼</li>
+                    </ul>
+                </div>
+                
+                <div class="timeline-item">
+                    <p><span class="time">下午</span> <span class="place">银鳞沙滩 → 建昌古城</span></p>
+                    <ul>
+                        <li>银鳞沙滩（泸山邛海风景区）建议自驾（10分钟车程），人少适合拍照</li>
+                        <li>建昌古城建议打车（距离银鳞沙滩约8公里），避免停车不便</li>
+                    </ul>
+                </div>
+                
+                <div class="timeline-item">
+                    <p><span class="time">晚餐</span> <span class="place">老号李小肠特色烧烤庄园总店</span></p>
+                    <ul>
+                        <li>航天路店，需自驾或打车20分钟</li>
+                    </ul>
+                </div>
+                
+                <div class="timeline-item">
+                    <p><span class="time">晚上</span> <span class="place">唐园夜景</span></p>
+                    <ul>
+                        <li>步行游览古风建筑，建议打车往返，停车位紧张</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="card" id="day3">
+            <h2>4月6日（周日）：酒庄与返程 <span class="weather">晴 28℃ 紫外线强</span></h2>
+            <p class="tag">交通建议：全天自驾</p>
+            
+            <div class="timeline">
+                <div class="timeline-item">
+                    <p><span class="time">早餐</span> <span class="place">酒店附近简餐或打包昭觉白桦林罗非鱼（西昌店）</span></p>
+                    <ul>
+                        <li>需提前预约</li>
+                    </ul>
+                </div>
+                
+                <div class="timeline-item">
+                    <p><span class="time">上午</span> <span class="place">月谷酒庄</span></p>
+                    <ul>
+                        <li>自驾30分钟抵达，品酒拍照</li>
+                        <li>建议10:00前出发，避开正午高温</li>
+                    </ul>
+                </div>
+                
+                <div class="timeline-item">
+                    <p><span class="time">午餐</span> <span class="place">安哈镇小木屋休闲山庄</span></p>
+                    <ul>
+                        <li>彝族风味餐，需自驾40分钟，根据时间灵活调整</li>
+                    </ul>
+                </div>
+                
+                <div class="timeline-item">
+                    <p><span class="time">返程</span></p>
+                    <ul>
+                        <li>下午14:00前出发，避开晚高峰</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="card" id="tips">
+            <h2>其他建议</h2>
+            
+            <h3>餐厅安排优化</h3>
+            <ul>
+                <li><strong class="highlight">燃味江湖菜（海河繁华里店）</strong>可调整至4日晚酒吧街宵夜时段</li>
+                <li><strong class="highlight">胡四哥火盆烧烤（西部村寨店）</strong>建议替换为更近的老号李小肠</li>
+            </ul>
+            
+            <h3>交通注意事项</h3>
+            <ul>
+                <li>邛海环线景点停车费约10-20元/次，建议早到抢占车位</li>
+                <li>打车使用"航天城出租"官方平台，价格透明</li>
+            </ul>
+            
+            <h3>天气与装备</h3>
+            <ul>
+                <li>携带防晒霜、帽子、墨镜；金鳞沙滩需穿防滑鞋</li>
+                <li>查看"月城公交"APP实时公交信息</li>
+            </ul>
+            
+            <div class="note">
+                <p>希望这份计划能让你高效玩转西昌！祝旅途愉快！</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 卡片动画
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.card');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+            
+            cards.forEach((card, index) => {
+                card.style.transitionDelay = `${index * 0.1}s`;
+                observer.observe(card);
+            });
+        });
+    </script>
+</body>
+</html>
